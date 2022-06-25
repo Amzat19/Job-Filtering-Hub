@@ -27,9 +27,9 @@ const Jobs = ({ filtersArray, setFiltersArray }) => {
             }
 
             return (
-              <div key={job._id} className={`relative h-64 w-4/5 m-auto mt-12 pb-3 bg-white ${job.featured ? `border-l-4 border-dDarkCyan` : ``}  rounded-md shadow-lg md:flex md:items-center md:justify-between md:h-36`}>
+              <div key={job._id} className={`relative h-[280px] w-4/5 m-auto mt-12 bg-white ${job.featured ? `border-l-4 border-dDarkCyan` : ``}  rounded-md shadow-lg md:flex md:items-center md:justify-between md:h-36`}>
                 <div className='ml-6 w-4/5 pt-10 pb-3 border-b border-dDarkCyan md:flex md:gap-4 md:items-center md:w-1/2 md:border-none md:pb-5'>
-                  <div className='absolute bottom-56 left-4 md:static md:w-16 md:h-16 '>
+                  <div className='absolute bottom-60 left-4 md:static md:w-16 md:h-16 '>
                     <Image src={job.logo} width={56} height={56} alt="Company Logo" className="rounded-[50%]" />
                   </div>
                   <div className=''>
