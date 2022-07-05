@@ -22,7 +22,12 @@ const AddNewJob = () => {
     const [values, setValues] = useState(initialState);
 
     const handleInputValue = (e) => {
-        let { value, name} = e.target;
+        let { value, name, type } = e.target;
+
+        if(type === "file"){
+            value = e.target.files[0];
+            handleFileToBase64(value);
+        }
         
         setValues({
             ...values,
@@ -68,30 +73,15 @@ const AddNewJob = () => {
         Router.push('/');
     }
 
-    const handleImage = async (e) => {
-        const { name } = e.target;
-        const file = e.target.files[0];
-        const base64 = await convertBase64(file);
-
-        setValues({
-         ...values,
-         [name] : base64
-        })
-    }
-
-    const convertBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(file);
-
-            fileReader.onload = () => {
-                resolve(fileReader.result);
-            };
-            
-            fileReader.onerror = (error) => {
-                reject(error);
-            };
-        });
+    const handleFileToBase64 = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setValues({
+                ...values,
+                logo: reader.result
+            })
+        }
     }
 
     const clear = () => {
@@ -129,7 +119,7 @@ const AddNewJob = () => {
                          id="logo"
                          accept=".jpg, .jpeg, .png, .svg"
                          className="flex justify-center text-sm"
-                         onChange={handleImage}
+                         onChange={handleInputValue}
                          required/>
                     </label>
                     <label className="text-xl mb-3 m-auto w-4/5 font-medium grid">
